@@ -25,6 +25,21 @@
     "Action": "Action",
     "ActionFailed": "L'action a échoué car le test de panique est de",
     "Active": "Actif",
+    "Actor": {
+      "Tabs": {
+        "Creature": "Creature",
+        "Crew": "Crew",
+        "Description": "Description",
+        "General": "General",
+        "Image": "Image",
+        "Inventory": "Inventory",
+        "Modules/Upgrades": "Modules/Upgrades",
+        "Notes": "Notes",
+        "Skills": "Skills",
+        "Space Combat Phases": "Space Combat Phases",
+        "Systems": "Systems"
+      }
+    },
     "AddItem": "Ajouter Objet",
     "AddMenuHint": "Ajouter un accès aux paramètres d'affichage de la police au panneau de configuration principal.",
     "AddMenuName": "Ajouter raccourci paramètres",

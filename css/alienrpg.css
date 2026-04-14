@@ -43,7 +43,7 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 :root {
-  --alienfont: "OCR-A";
+  --alienfont: 'OCR-A';
   --fontsize: 15px;
 }
 
@@ -2402,7 +2402,7 @@ button:focus {
 .critical-inj-wide {
   display: grid;
   grid-template-areas: "crit1w crit2w crit3w crit4w";
-  grid-template-columns: 24px 196px 505px 20px;
+  grid-template-columns: 24px 196px 475px 20px;
   align-items: center;
 }
 
@@ -5876,45 +5876,6 @@ input[type=checkbox]::before {
 
 .alienrpg {
   /* Styles limited to alienrpg sheets */
-  /*
-  	Original Sheet by Paul Watson
-
-  	CRT Effect by Alec Lownes
-  		http://aleclownes.com/2017/02/01/crt-display.html
-
-  	May 2021
-  */
-  /* CHARACTER SHEET */
-  /*.sheet {
-  	min-width: 600px;
-  	max-width: 1000px;
-  	min-height: 350px;
-  }*/
-  /** General Tab **/
-  /** General Tab - Left Column **/
-  /*** Story and Experience Points ***/
-  /*** Conditions ***/
-  /*.dots.radiation.radbox_char {
-      margin-top: 36px;
-  }
-
-  .dots.radiation.radbox_synth {
-      /*margin-top: 27px;
-      margin-top: 7px;
-  }
-
-  .dots.radiation.radglow_char {
-      margin-top: 36px;
-  }
-
-  .dots.radiation.radglow_synth {
-      margin-top: 27px;
-  }*/
-  /*** Consumables ***/
-  /** General Tab - Right Column **/
-  /** - **/
-  /* Creature Sheet */
-  /* Items */
 }
 .alienrpg :root {
   --aliengreen: hsl(84, 100%, 59%);
@@ -6324,6 +6285,22 @@ input[type=checkbox]::before {
 .alienrpg .biog-full img {
   display: block;
 }
+.alienrpg {
+  /*
+  	Original Sheet by Paul Watson
+
+  	CRT Effect by Alec Lownes
+  		http://aleclownes.com/2017/02/01/crt-display.html
+
+  	May 2021
+  */
+  /* CHARACTER SHEET */
+  /*.sheet {
+  	min-width: 600px;
+  	max-width: 1000px;
+  	min-height: 350px;
+  }*/
+}
 .alienrpg .crt .window-content {
   padding: 5px;
   border: 2px solid var(--aliengreen);
@@ -6590,6 +6567,9 @@ input[type=checkbox]::before {
   width: 16px;
   color: var(--aliengreen);
 }
+.alienrpg {
+  /** General Tab **/
+}
 .alienrpg .crt .grid-crtPage {
   display: grid;
   grid-template-areas: "crt_Col1 crt_Col2";
@@ -6606,6 +6586,9 @@ input[type=checkbox]::before {
   grid-template-columns: 100%;
   padding-left: 5px;
 }
+.alienrpg {
+  /** General Tab - Left Column **/
+}
 .alienrpg .crt .crt_Col1 h2 {
   text-transform: uppercase;
   padding-bottom: 4px;
@@ -6616,6 +6599,9 @@ input[type=checkbox]::before {
 .alienrpg .crt .crt_Item3 {
   border: 1px solid var(--aliengreen);
   padding: 5px;
+}
+.alienrpg {
+  /*** Story and Experience Points ***/
 }
 .alienrpg .crt .crt_Item1 {
   text-align: center;
@@ -6639,6 +6625,9 @@ input[type=checkbox]::before {
 }
 .alienrpg .crt .crt_Item1 .xp_dots_pos {
   padding-top: 18px;
+}
+.alienrpg {
+  /*** Conditions ***/
 }
 .alienrpg .crt .crt_Item2_char {
   position: relative;
@@ -6704,6 +6693,24 @@ input[type=checkbox]::before {
   bottom: 0;
   left: 0;
 }
+.alienrpg {
+  /*.dots.radiation.radbox_char {
+      margin-top: 36px;
+  }
+
+  .dots.radiation.radbox_synth {
+      /*margin-top: 27px;
+      margin-top: 7px;
+  }
+
+  .dots.radiation.radglow_char {
+      margin-top: 36px;
+  }
+
+  .dots.radiation.radglow_synth {
+      margin-top: 27px;
+  }*/
+}
 .alienrpg .crt .dots.radiation.rad_glow {
   background-color: var(--alienitemselect);
   color: #000;
@@ -6737,6 +6744,9 @@ input[type=checkbox]::before {
   text-align: center;
   background-color: var(--alienoddtab);
 }
+.alienrpg {
+  /*** Consumables ***/
+}
 .alienrpg .crt .fas.fa-parachute-box {
   vertical-align: top;
   padding-top: 6px;
@@ -6748,6 +6758,9 @@ input[type=checkbox]::before {
 .alienrpg .crt .crt_Item3 .supply-btn.Power2 {
   padding-left: 6px;
   font-size: 20px;
+}
+.alienrpg {
+  /** General Tab - Right Column **/
 }
 .alienrpg .crt .crt_gridCarrer {
   display: grid;
@@ -6850,6 +6863,9 @@ input[type=checkbox]::before {
   grid-template-areas: "crt_Relat_Buddy crt_Relat_Rival";
   grid-template-columns: 49%;
   grid-column-gap: 5px;
+}
+.alienrpg {
+  /** - **/
 }
 .alienrpg .crt_Col3 {
   grid-area: crt_Col3;
@@ -7014,6 +7030,9 @@ input[type=checkbox]::before {
 .alienrpg .crt .tab.inventory .fas {
   margin-right: 10px;
 }
+.alienrpg {
+  /* Creature Sheet */
+}
 .alienrpg .crt .creature-acid-roll:hover,
 .alienrpg .crt .creature-acid-roll:focus {
   text-shadow: 0 0 0px var(--aliengreen);
@@ -7038,6 +7057,9 @@ input[type=checkbox]::before {
   text-shadow: 0 0 rgba(0, 0, 0, 0);
   color: rgba(0, 0, 0, 0);
   background: url(../images/alien_crt_roll-attack_hover.gif) no-repeat top left;
+}
+.alienrpg {
+  /* Items */
 }
 .alienrpg .crt .profile-img-item {
   margin: 0;

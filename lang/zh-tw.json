@@ -25,6 +25,21 @@
     "Action": "Action",
     "ActionFailed": "由于恐慌滚动，操作失败",
     "Active": "激活中",
+    "Actor": {
+      "Tabs": {
+        "Creature": "Creature",
+        "Crew": "Crew",
+        "Description": "Description",
+        "General": "General",
+        "Image": "Image",
+        "Inventory": "Inventory",
+        "Modules/Upgrades": "Modules/Upgrades",
+        "Notes": "Notes",
+        "Skills": "Skills",
+        "Space Combat Phases": "Space Combat Phases",
+        "Systems": "Systems"
+      }
+    },
     "AddItem": "添加物品",
     "AddMenuHint": "將顏色與字體設置添加到當前的主設置菜單中。",
     "AddMenuName": "額外設置按鈕",

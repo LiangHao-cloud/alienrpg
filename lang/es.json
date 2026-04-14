@@ -25,6 +25,21 @@
     "Action": "Action",
     "ActionFailed": "Acción fallida porque la tirada de pánico es",
     "Active": "Activo",
+    "Actor": {
+      "Tabs": {
+        "Creature": "Criatura",
+        "Crew": "Tripulación",
+        "Description": "Descripción",
+        "General": "General",
+        "Image": "Image",
+        "Inventory": "Inventario",
+        "Modules/Upgrades": "Módulos/Actualizaciones",
+        "Notes": "Notas",
+        "Skills": "Habilidades",
+        "Space Combat Phases": "Space Combat Phases",
+        "Systems": "Sistemas"
+      }
+    },
     "AddItem": "Añadir Objeto",
     "AddMenuHint": "Añadir botón de configuración de color y letra al panel principal.",
     "AddMenuName": "Añadir botón de configuración",

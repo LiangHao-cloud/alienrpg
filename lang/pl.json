@@ -25,6 +25,21 @@
     "Action": "Akcja",
     "ActionFailed": "Akcja nieudana, ponieważ rzut paniki wynosi",
     "Active": "Aktywny",
+    "Actor": {
+      "Tabs": {
+        "Creature": "Creature",
+        "Crew": "Crew",
+        "Description": "Description",
+        "General": "General",
+        "Image": "Image",
+        "Inventory": "Inventory",
+        "Modules/Upgrades": "Modules/Upgrades",
+        "Notes": "Notes",
+        "Skills": "Skills",
+        "Space Combat Phases": "Space Combat Phases",
+        "Systems": "Systems"
+      }
+    },
     "AddItem": "Dodaj Przedmiot",
     "AddMenuHint": "Dodaj przycisk ustawień Koloru i Czcionki do głównego panelu konfiguracji.",
     "AddMenuName": "Dodaj przycisk ustawień",

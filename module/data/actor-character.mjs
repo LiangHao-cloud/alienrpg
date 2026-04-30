@@ -423,7 +423,7 @@ export default class alienrpgCharacter extends alienrpgActorBase {
         }
         if (Attrib.type === "critical-injury") {
           myCrit++;
-          console.log(myCrit);
+          // console.log(myCrit);
         }
       }
 

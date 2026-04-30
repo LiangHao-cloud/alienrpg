@@ -1690,10 +1690,10 @@ export class alienrpgActor extends Actor {
         {
           resultImage = test1.results[0].img;
           cleanText = messG.replace(/(<b>)|(<p>|)(<strong>)|(<\/b>)|(<\/p>)|(<\/strong>)/gi, "");
-          factorFour = cleanText.replace(/<br \/>/gi, "<br>");
           // V13 version
           // testArray = factorFour.split(/[:] |<br \/>/gi);
           // V14 Version
+          factorFour = cleanText.replace(/<br \/>/gi, "<br>");
           testArray = factorFour.split(/[:] |<br>/gi);
 
           let speanex = testArray[7];

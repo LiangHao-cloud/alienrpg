@@ -638,12 +638,12 @@ export default class alienrpgSpacecraftSheet extends api.HandlebarsApplicationMi
             switch (itemDel.system.header.type.value) {
               case "0":
                 if (this.actor.system.general.critMin.value <= 1) {
-                  this.actor.removeCondition("shipminor");
+                  this.actor.toggleStatusEffect("shipminor");
                 }
                 break;
               case "1":
                 if (this.actor.system.general.critMaj.value <= 1) {
-                  this.actor.removeCondition("shipmajor");
+                  this.actor.toggleStatusEffect("shipmajor");
                 }
                 break;
             }
@@ -1637,7 +1637,7 @@ export default class alienrpgSpacecraftSheet extends api.HandlebarsApplicationMi
   /**
    * Creates or deletes a configured status effect.
    *
-   * @this DrawSteelActorSheet
+   * @this ALienRPGActorSheet
    * @param {PointerEvent} event   The originating click event.
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    * @private
@@ -1651,7 +1651,7 @@ export default class alienrpgSpacecraftSheet extends api.HandlebarsApplicationMi
   /**
    * Toggles an active effect from disabled to enabled.
    *
-   * @this DrawSteelActorSheet
+   * @this ALienRPGActorSheet
    * @param {PointerEvent} event   The originating click event.
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    * @private

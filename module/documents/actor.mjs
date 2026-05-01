@@ -1996,14 +1996,20 @@ export class alienrpgActor extends Actor {
     switch (type) {
       case "spacecraft":
         if (shipCritType === "Minor") {
-          await this.addCondition("shipminor");
+          if (actor.system.general.critMin.value === 1) {
+            this.toggleStatusEffect("shipminor");
+          }
         } else {
-          await this.addCondition("shipmajor");
+          if (actor.system.general.critMaj.value === 1) {
+            this.toggleStatusEffect("shipmajor");
+          }
         }
         break;
       case "character":
       case "synthetic":
-        await this.addCondition("criticalinj");
+        if (actor.system.general.critInj.value === 1) {
+          this.toggleStatusEffect("criticalinj");
+        }
         break;
       case "creature":
         console.log("it's a Creature Crit");

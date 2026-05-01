@@ -544,5 +544,26 @@ ALIENRPG.StatusEffects = {
       // icon: "systems/alienrpg/images/icons/slow-action.webp",
       statuses: ["slowAction"],
     },
+    {
+      id: "shipminor",
+      name: "ALIENRPG.MINOR-COMPONENT-DAMAGE",
+      label: "ALIENRPG.MINOR-COMPONENT-DAMAGE",
+      img: "systems/alienrpg/images/lightning-spanner.webp",
+      statuses: ["shipminor"],
+    },
+    {
+      id: "shipmajor",
+      name: "ALIENRPG.MAJOR-COMPONENT-DAMAGE",
+      label: "ALIENRPG.MAJOR-COMPONENT-DAMAGE",
+      img: "systems/alienrpg/images/cogsplosion.webp",
+      statuses: ["shipmajor"],
+    },
+    {
+      id: "criticalinj",
+      name: "ALIENRPG.CriticalInjuries",
+      label: "ALIENRPG.CriticalInjuries",
+      img: "icons/skills/wounds/injury-pain-body-orange.webp",
+      statuses: ["criticalinj"],
+    },
   ],
 };

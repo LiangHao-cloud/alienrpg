@@ -685,7 +685,7 @@ export default class alienrpgCharacterSheet extends api.HandlebarsApplicationMix
         callback: (element) => {
           const itemDel = this.actor.items.get(element.dataset.itemId);
           if (itemDel.type === "critical-injury" && this.actor.system.general.critInj.value <= 1) {
-            this.actor.removeCondition("criticalinj");
+            this.actor.toggleStatusEffect("criticalinj");
           }
           itemDel.delete();
         },

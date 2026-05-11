@@ -6619,9 +6619,8 @@ input[type=checkbox]::before {
   padding-top: 8px;
 }
 .alienrpg .crt .crt_Item1 .experience {
-  width: 160px;
+  width: 170px;
   display: inline-flex;
-  margin-bottom: 10px;
 }
 .alienrpg .crt .crt_Item1 .xp_dots_pos {
   padding-top: 18px;

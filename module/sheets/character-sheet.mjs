@@ -758,40 +758,40 @@ export default class alienrpgCharacterSheet extends api.HandlebarsApplicationMix
     const itemId = target.dataset.itemId;
     const item = this.actor.items.get(itemId);
     const actorID = this.actor.id;
-    if (game.settings.get("alienrpg", "evolved")) {
-      if (event.button === 2) {
-        if (item.type === "weapon") {
-          // Trigger the item roll
-          return item.roll(true, dataset);
-        }
-      } else {
-        if (item.type === "weapon" || item.type === "spacecraftweapons") {
-          // Trigger the item roll
-          if (item.system.header.type.value === "1" && item.system.attributes.rounds.value <= 0) {
-            const chatMessage =
-              `<div class="chatBG" + ${actorID} "><span class="warnblink alienchatred"; style="font-weight: bold; font-size: larger">` +
-              game.i18n.localize("ALIENRPG.noAmmo") +
-              "</span></div>";
-            this.actor.createChatMessage(chatMessage, actorID);
-          } else {
-            await item.roll(false, dataset);
-            return;
-          }
-        }
+    // if (game.settings.get("alienrpg", "evolved")) {
+    if (event.button === 2) {
+      if (item.type === "weapon") {
+        // Trigger the item roll
+        return item.roll(true, dataset);
       }
     } else {
-      if (event.button === 2) {
-        if (item.type === "weapon") {
-          // Trigger the item roll
-          return item.roll(true, dataset);
-        }
-      } else {
-        if (item.type === "weapon" || item.type === "spacecraftweapons") {
-          // Trigger the item roll
-          return item.roll(false, dataset);
+      if (item.type === "weapon" || item.type === "spacecraftweapons") {
+        // Trigger the item roll
+        if (item.system.header.type.value === "1" && item.system.attributes.rounds.value <= 0) {
+          const chatMessage =
+            `<div class="chatBG" + ${actorID} "><span class="warnblink alienchatred"; style="font-weight: bold; font-size: larger">` +
+            game.i18n.localize("ALIENRPG.noAmmo") +
+            "</span></div>";
+          this.actor.createChatMessage(chatMessage, actorID);
+        } else {
+          await item.roll(false, dataset);
+          return;
         }
       }
     }
+    // } else {
+    //   if (event.button === 2) {
+    //     if (item.type === "weapon") {
+    //       // Trigger the item roll
+    //       return item.roll(true, dataset);
+    //     }
+    //   } else {
+    //     if (item.type === "weapon" || item.type === "spacecraftweapons") {
+    //       // Trigger the item roll
+    //       return item.roll(false, dataset);
+    //     }
+    //   }
+    // }
   }
 
   static async _onClickXPStatLevel(event) {

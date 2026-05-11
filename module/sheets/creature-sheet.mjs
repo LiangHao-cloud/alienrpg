@@ -43,6 +43,11 @@ export default class alienrpgCreatureSheet extends api.HandlebarsApplicationMixi
       closeOnSubmit: false,
     },
   };
+  /**
+   * A set of the currently expanded document uuids.
+   * @type {Set<string>}
+   */
+  _expandedDocumentDescriptions = new Set();
 
   /** @override */
   static PARTS = {
@@ -121,13 +126,12 @@ export default class alienrpgCreatureSheet extends api.HandlebarsApplicationMixi
       isGM: game.user.isGM,
     };
 
-    context.statuses = await this._prepareStatusEffects();
-    context.effects = await this._prepareActiveEffectCategories();
-
     context.rTables = alienrpgrTableGet.rTableget();
     context.cTables = alienrpgrTableGet.cTableget();
 
     this._prepareCreatureItems(context); // Return data to the sheet
+    context.statuses = await this._prepareStatusEffects();
+    context.effects = await this._prepareActiveEffectCategories();
 
     return context;
   }

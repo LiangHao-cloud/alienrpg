@@ -683,6 +683,7 @@ Removed cap (5) on creature attributes.
 
 Version 4.0.12
 V14 Compliant.
+Added popups to Character and Synthtic sheets to show roll modifiers on Attributes, Resolve and Skills. 
 Corrected issue with Skills not triggering rolls when using the CRT UI sheet.
 Fixed issue with the menus not being translated properly.
 Increased the size of the xp cash window on the classic sheets to prevent overlap. 

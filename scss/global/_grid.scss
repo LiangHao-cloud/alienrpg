@@ -770,6 +770,106 @@
   justify-self: center;
 }
 
+.grid-spacecraft-weapon-body {
+  display: grid;
+  // border: 2px solid var(--aliengreen);
+  grid-template-areas:
+    "scwCol1 scwCol2 scwCol3 scwCol4 scwCol5 scwCol6"
+    "scwCol7 scwCol8 scwCol9 scwCol10 scwCol11 scwCol12";
+  padding-bottom: 2px;
+  row-gap: 5px;
+  margin-bottom: 5px;
+  //                      l1     l2    l3    l4    l5    l6
+  // grid-template-columns: 100px 115px 100px 115px 140px 41px;
+  grid-template-columns: 74px 156px 97px 123px 100px 66px;
+  align-items: center;
+}
+
+.scwCol1 {
+  grid-area: scwCol1;
+  justify-self: left;
+}
+.scwCol2 {
+  grid-area: scwCol2;
+  justify-self: left;
+}
+.scwCol2a {
+  grid-area: scwCol2a;
+  justify-self: left;
+}
+.scwCol3 {
+  grid-area: scwCol3;
+  justify-self: left;
+}
+.scwCol4 {
+  grid-area: scwCol4;
+  justify-self: center;
+}
+.scwCol4a {
+  grid-area: scwCol4a;
+  justify-self: center;
+}
+.scwCol5 {
+  grid-area: scwCol5;
+  justify-self: left;
+}
+.scwCol6 {
+  grid-area: scwCol6;
+  justify-self: center;
+}
+.scwCol7 {
+  grid-area: scwCol7;
+  justify-self: left;
+}
+.scwCol8 {
+  grid-area: scwCol8;
+  justify-self: left;
+}
+.scwCol8a {
+  grid-area: scwCol8a;
+  justify-self: left;
+}
+.scwCol9 {
+  grid-area: scwCol9;
+  justify-self: left;
+}
+.scwCol10 {
+  grid-area: scwCol10;
+  justify-self: left;
+}
+.scwCol11 {
+  grid-area: scwCol11;
+  justify-self: left;
+}
+.scwCol12 {
+  grid-area: scwCol12;
+  justify-self: center;
+}
+.scwCol13 {
+  grid-area: scwCol13;
+  justify-self: left;
+}
+.scwCol14 {
+  grid-area: scwCol14;
+  justify-self: left;
+}
+.scwCol15 {
+  grid-area: scwCol15;
+  justify-self: left;
+}
+.scwCol16 {
+  grid-area: scwCol16;
+  justify-self: left;
+}
+.scwCol17 {
+  grid-area: scwCol17;
+  justify-self: left;
+}
+.scwCol18 {
+  grid-area: scwCol18;
+  justify-self: center;
+}
+
 .grid-items {
   display: grid;
   // border: 2px solid var(--aliengreen);

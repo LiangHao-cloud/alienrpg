@@ -18,6 +18,7 @@ ALIENRPG.modifiers = {
   emp: "ALIENRPG.AbilityEmp",
   health: "ALIENRPG.Health",
   stress: "ALIENRPG.Stress",
+  resolve: "ALIENRPG.ResolveS",
 };
 ALIENRPG.creatureattributes = {
   speed: "ALIENRPG.Speed",

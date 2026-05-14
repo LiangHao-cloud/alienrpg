@@ -99,6 +99,7 @@ export default class alienrpgCharacter extends alienrpgActorBase {
           label: new fields.StringField({ required: true, blank: true }),
           attrib: new fields.StringField({ required: true, blank: true }),
           description: new fields.StringField({ required: true, blank: true }),
+          attrmod: new fields.NumberField({ ...requiredInteger, initial: 0 }),
         });
         return obj;
       }, {}),
@@ -347,6 +348,7 @@ export default class alienrpgCharacter extends alienrpgActorBase {
         totalPower += Attrib.totalPower;
       }
 
+      // if (Attrib.type === "item" || Attrib.type === "talent" || Attrib.type === "critical-injury" || Attrib.type === "armor") {
       if (Attrib.type === "item" || Attrib.type === "critical-injury" || Attrib.type === "armor") {
         if (Attrib.system.header.active === "true") {
           const base = Attrib.system.modifiers.attributes;
@@ -369,6 +371,9 @@ export default class alienrpgCharacter extends alienrpgActorBase {
                 break;
               case "stress":
                 attrMod.stress = attrMod.stress += Number(aAttrib.value);
+                break;
+              case "resolve":
+                attrMod.resolve = attrMod.resolve += Number(aAttrib.value);
                 break;
 
               default:
@@ -459,6 +464,7 @@ export default class alienrpgCharacter extends alienrpgActorBase {
       this.skills[skl].attrib = game.i18n.localize(CONFIG.ALIENRPG.skills[skl].attrib) ?? skl;
       this.skills[skl].description = game.i18n.localize(CONFIG.ALIENRPG.skills[skl].name) ?? skl;
       const conSkl = this.skills[skl].attrib;
+      this.skills[skl].attrmod = this.attributes[conSkl].mod || 0;
       const upData = Number(this.skills[skl].value || 0) + Number(this.attributes[conSkl].mod || 0) + Number(sklMod[skl] || 0);
       this.skills[skl].mod = upData;
     }
@@ -468,7 +474,8 @@ export default class alienrpgCharacter extends alienrpgActorBase {
       this.header.health.max = Math.round((this.attributes.str.value + this.attributes.agl.value) / 2) + this.header.health.mod;
       this.header.health.calculatedMax = Math.round((this.attributes.str.mod + this.attributes.agl.mod) / 2) + this.header.health.mod;
       this.header.resolve.mod = this.header.resolve.mod = Number(attrMod.resolve || 0);
-      this.header.resolve.value = Math.round((this.attributes.wit.value + this.attributes.emp.value) / 2) + this.header.resolve.mod;
+      // this.header.resolve.value = Math.round((this.attributes.wit.value + this.attributes.emp.value) / 2) + this.header.resolve.mod;
+      this.header.resolve.value = Math.round((this.attributes.wit.value + this.attributes.emp.value) / 2);
       this.header.resolve.calculatedMax = Math.round((this.attributes.wit.mod + this.attributes.emp.mod) / 2) + this.header.resolve.mod;
     } else {
       this.header.health.max = this.attributes.str.value + this.header.health.mod;

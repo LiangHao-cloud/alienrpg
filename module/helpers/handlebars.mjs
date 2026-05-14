@@ -42,6 +42,9 @@ function registerHandlebarsHelpers() {
   Handlebars.registerHelper("addstats", function (v1, v2) {
     return v1 + v2;
   });
+  Handlebars.registerHelper("minusstats", function (v1, v2) {
+    return v1 - v2;
+  });
 
   Handlebars.registerHelper("if_isWeapons", function (sectionlabel, options) {
     // console.warn('helper triggered', sectionlabel);

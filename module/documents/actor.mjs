@@ -838,19 +838,24 @@ export class alienrpgActor extends Actor {
     const config = CONFIG.ALIENRPG;
     let htmlData = "";
     let aStress = 0;
-    const oldStress = actor.getRollData().general.stressresponse.value;
-
-    const resolve = actor.getRollData().header.resolve.value;
+    let oldStress = 0;
+    let resolve = 0;
     const modifier = Number(dataset?.mod ?? 0) + Number(dataset?.modifier ?? 0);
     const resolveMod = Number(dataset?.resolveMod ?? 0);
     const table = game.tables.getName("Stress Response Table");
     let status = "";
     let effectid = "";
+    let resolveModifier = 0;
     if (!table) {
       return ui.notifications.error(game.i18n.localize("ALIENRPG.NoResolveTable"));
     }
 
-    const resolveModifier = Number(resolve) + Number(resolveMod);
+    if (dataset.action === "CrewPanic") {
+      actor = game.actors.get(dataset.crewpanic);
+    }
+    oldStress = actor.getRollData().general.stressresponse.lastRoll;
+    resolve = actor.getRollData().header.resolve.calculatedMax;
+    resolveModifier = Number(resolve) + Number(resolveMod);
 
     if (actor.type === "synthetic") {
       if (!actor.system.header.synthstress) return;
@@ -860,7 +865,9 @@ export class alienrpgActor extends Actor {
     }
     const roll = await new Roll(`(1d6)`).evaluate();
     let rollTotal = roll.total + (aStress - resolveModifier);
-    console.warn(`Rolling Resolve, ${roll}, Dice Value, ${roll.total}, Resolve Value ${aStress}, Current level ${oldStress}, Total Roll ${rollTotal}`);
+    console.warn(
+      `Rolling Resolve, ${roll}, Dice Value, ${roll.total}, Resolve Value ${resolve},Manual Modifier ${aStress}, Current level ${oldStress}, Total Roll ${rollTotal}`,
+    );
     if (rollTotal <= oldStress) {
       console.log("you already have condition =>: ", rollTotal, "existing level: ", oldStress);
       rollTotal = oldStress + 1;
@@ -889,7 +896,7 @@ export class alienrpgActor extends Actor {
             });
             altDescription = game.i18n.localize("ALIENRPG.YouAlreadyHaveThis");
           } else {
-            if (await this.hasCondition("deflated")) {
+            if (await actor.hasCondition("deflated")) {
               altDescription = game.i18n.localize("ALIENRPG.CantGetJumpy");
             } else {
               status = effectid;
@@ -900,7 +907,7 @@ export class alienrpgActor extends Actor {
       case 2:
         {
           effectid = "tunnelvision";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
             await actor.update({
               "system.header.stress.value": actor.system.header.stress.value + 1,
             });
@@ -913,7 +920,7 @@ export class alienrpgActor extends Actor {
       case 3:
         {
           effectid = "aggravated";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
             await actor.update({
               "system.header.stress.value": actor.system.header.stress.value + 1,
             });
@@ -926,7 +933,7 @@ export class alienrpgActor extends Actor {
       case 4:
         {
           effectid = "shakes";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
             await actor.update({
               "system.header.stress.value": actor.system.header.stress.value + 1,
             });
@@ -939,7 +946,7 @@ export class alienrpgActor extends Actor {
       case 5:
         {
           effectid = "frantic";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
             await actor.update({
               "system.header.stress.value": actor.system.header.stress.value + 1,
             });
@@ -952,14 +959,14 @@ export class alienrpgActor extends Actor {
       case 6:
         {
           effectid = "deflated";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
             await actor.update({
               "system.header.stress.value": actor.system.header.stress.value + 1,
             });
             altDescription = game.i18n.localize("ALIENRPG.YouAlreadyHaveThis");
           } else {
-            if (await this.hasCondition("jumpy")) {
-              await this.toggleStatusEffect("jumpy");
+            if (await actor.hasCondition("jumpy")) {
+              await actor.toggleStatusEffect("jumpy");
             }
             status = effectid;
           }
@@ -968,7 +975,7 @@ export class alienrpgActor extends Actor {
       case 7:
         {
           effectid = "messup";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
             await actor.update({
               "system.header.stress.value": actor.system.header.stress.value + 1,
             });
@@ -989,7 +996,7 @@ export class alienrpgActor extends Actor {
     }
 
     if (status) {
-      await this.toggleStatusEffect(status);
+      await actor.toggleStatusEffect(status);
       await actor.update({
         "system.general.stressresponse.value": rollTotal,
       });
@@ -1001,7 +1008,7 @@ export class alienrpgActor extends Actor {
       name: customResults[0].name,
       description: altDescription,
       resolve: resolve,
-      modifier: resolveModifier,
+      modifier: aStress - resolveModifier,
       result: rollTotal,
     };
 
@@ -1055,12 +1062,12 @@ export class alienrpgActor extends Actor {
     const config = CONFIG.ALIENRPG;
     let htmlData = "";
     let aStress = 0;
-    const resolve = actor.getRollData().header.resolve.value;
+    let resolve = 0;
     const stressMod = Number(dataset?.stressMod ?? 0);
     const table = game.tables.getName("Panic Response Table");
     let status = "";
     let effectid = "";
-    const oldPanic = actor.getRollData().general.panic.lastRoll;
+    let oldPanic = 0;
     let customResults = "";
     let altDescription = "";
     let roll = "";
@@ -1069,14 +1076,19 @@ export class alienrpgActor extends Actor {
       return ui.notifications.error(game.i18n.localize("ALIENRPG.NoResolveTable"));
     }
 
-    // const stressModifier = Number(resolve) + Number(stressMod)
-
+    if (dataset.action === "CrewPanic") {
+      actor = game.actors.get(dataset.crewpanic);
+    }
+    oldPanic = actor.getRollData().general.panic.lastRoll;
+    resolve = actor.getRollData().header.resolve.value;
     if (actor.type === "synthetic") {
       if (!actor.system.header.synthstress) return;
       aStress = 0;
     } else {
       aStress = actor.getRollData().header.stress.value + Number(stressMod);
     }
+    // const stressModifier = Number(resolve) + Number(stressMod)
+
     // roll = await new Roll(`(1d6) + (${aStress}-${resolve})`).evaluate()
     roll = await new Roll(`(1d6)`).evaluate();
     let rollTotal = roll.total + (aStress - resolve);
@@ -1109,7 +1121,7 @@ export class alienrpgActor extends Actor {
       case 1:
         {
           effectid = "spooked";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
           } else {
             await actor.update({
               "system.header.stress.value": actor.system.header.stress.value + 1,
@@ -1121,7 +1133,7 @@ export class alienrpgActor extends Actor {
       case 2:
         {
           effectid = "noisy";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
           } else {
             status = effectid;
           }
@@ -1130,7 +1142,7 @@ export class alienrpgActor extends Actor {
       case 3:
         {
           effectid = "twitchy";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
           } else {
             status = effectid;
           }
@@ -1139,7 +1151,7 @@ export class alienrpgActor extends Actor {
       case 4:
         {
           effectid = "loseitem";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
           } else {
             status = effectid;
           }
@@ -1148,7 +1160,7 @@ export class alienrpgActor extends Actor {
       case 5:
         {
           effectid = "paranoid";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
           } else {
             status = effectid;
           }
@@ -1157,7 +1169,7 @@ export class alienrpgActor extends Actor {
       case 6:
         {
           effectid = "hesitant";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
           } else {
             status = effectid;
           }
@@ -1166,7 +1178,7 @@ export class alienrpgActor extends Actor {
       case 7:
         {
           effectid = "freeze";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
           } else {
             status = effectid;
           }
@@ -1175,7 +1187,7 @@ export class alienrpgActor extends Actor {
       case 8:
         {
           effectid = "seekcover";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
           } else {
             status = effectid;
           }
@@ -1184,7 +1196,7 @@ export class alienrpgActor extends Actor {
       case 9:
         {
           effectid = "scream";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
           } else {
             await actor.update({
               "system.header.stress.value": actor.system.header.stress.value - 1,
@@ -1196,7 +1208,7 @@ export class alienrpgActor extends Actor {
       case 10:
         {
           effectid = "flee";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
           } else {
             status = effectid;
           }
@@ -1205,7 +1217,7 @@ export class alienrpgActor extends Actor {
       case 11:
         {
           effectid = "frenzy";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
           } else {
             status = effectid;
           }
@@ -1214,7 +1226,7 @@ export class alienrpgActor extends Actor {
       default:
         {
           effectid = "catatonic";
-          if (await this.hasCondition(effectid)) {
+          if (await actor.hasCondition(effectid)) {
           } else {
             status = effectid;
           }
@@ -1223,7 +1235,7 @@ export class alienrpgActor extends Actor {
     }
 
     if (status) {
-      await this.toggleStatusEffect(status);
+      await actor.toggleStatusEffect(status);
       await actor.update({
         "system.general.panic.lastRoll": rollTotal,
       });

@@ -14,7 +14,9 @@ export default class alienrpgTalent extends alienrpgItemBase {
       comment: new fields.SchemaField({
         value: new fields.HTMLField(),
       }),
-      active: new fields.BooleanField({ initial: false }),
+    });
+    schema.header = new fields.SchemaField({
+      active: new fields.StringField({ required: true, initial: "false" }),
     });
 
     return schema;

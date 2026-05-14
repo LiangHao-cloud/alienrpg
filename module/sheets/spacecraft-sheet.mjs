@@ -452,9 +452,9 @@ export default class alienrpgSpacecraftSheet extends api.HandlebarsApplicationMi
       }
     } else {
       if (event.button === 2) {
-        await this.actor.rollStressMod(this.actor, dataset);
+        await this.actor.rollResolveMod(this.actor, dataset);
       } else {
-        await this.actor.rollStress(this.actor, dataset);
+        await this.actor.rollResolve(this.actor, dataset);
       }
     }
     return;

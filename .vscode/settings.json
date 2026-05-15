@@ -1,5 +1,11 @@
 {
-  "i18n-ally.localesPaths": [
-    "lang"
-  ]
+  "i18n-ally.localesPaths": ["lang"],
+  "chat.extensionUnification.enabled": false,
+  "chat.disableAIFeatures": true,
+  "terminal.integrated.experimental.aiProfileGrouping": false,
+  "githubPullRequests.experimental.chat": false,
+  "githubPullRequests.codingAgent.enabled": false,
+  "chat.customizations.harnessSelector.enabled": false,
+  "workbench.settings.showAISearchToggle": false,
+  "gitlens.ai.enabled": false
 }

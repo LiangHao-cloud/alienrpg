@@ -4,18 +4,6 @@
     {{{selectOptions options selected=rangeMod labelAttr='label' localize=true}}}
   </select>
 </div>
-<div class='form-group' style='padding: 1em 1em'>
-  <label>{{localize 'ALIENRPG.Range'}} {{localize 'ALIENRPG.MODIFIER'}}</label>
-  {{#if dataset.isEvolved}}
-  <select id="rangeMod" name="rangeMod">
-    {{{selectOptions config.evolved_vehicle_weapon_range_list selected=rangeMod labelAttr='label' localize=true}}}
-  </select>
-  {{else}}
-  <select id="rangeMod" name="rangeMod">
-    {{{selectOptions config.vehicle_weapon_range_list selected=rangeMod labelAttr='label' localize=true}}}
-  </select>
-  {{/if}}
-</div>
 <div class='form-group'>
   <label style='flex-grow: 2;'>{{localize 'ALIENRPG.BaseMod'}}</label>
   <input type='text' id='modifier' name='modifier' value='0' autofocus='autofocus' />

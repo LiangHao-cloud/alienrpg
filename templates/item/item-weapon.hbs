@@ -20,11 +20,11 @@
 		<input type='text' class='maxboxsize wCol10' name='system.attributes.rounds.value' value='{{system.attributes.rounds.value}}' data-dtype='Number' />
 		<label class='resource-label wCo113'>{{localize 'ALIENRPG.minrng'}}</label>
 		<select class='select-css wCol14' style='margin-top: 5px' name='system.attributes.minrange.value' data-dtype='{{system.attributes.minrange.value}}'>
-			{{selectOptions config.weapon_range_list selected=system.attributes.minrange.value labelAttr='label' localize=true}}
+			{{selectOptions config.evolved_weapon_range_list selected=system.attributes.minrange.value labelAttr='label' localize=true}}
 		</select>
 		<label class='resource-label wCol15'>{{localize 'ALIENRPG.maxrng'}}</label>
 		<select class='select-css wCol16' style='margin-top: 5px' name='system.attributes.range.value' data-dtype='{{system.attributes.range.value}}'>
-			{{selectOptions config.weapon_range_list selected=system.attributes.range.value labelAttr='label' localize=true}}
+			{{selectOptions config.evolved_weapon_range_list selected=system.attributes.range.value labelAttr='label' localize=true}}
 		</select>
 		<label class='resource-label wCol11'>{{localize 'ALIENRPG.ArmorPiercing'}}</label>
 		<input class='wCol12' name='system.header.armorpiercing' type='checkbox' {{checked system.header.armorpiercing}} />
@@ -34,7 +34,7 @@
 		{{else}}
 		<label class='resource-label wCo19'>{{localize 'ALIENRPG.Range'}}</label>
 		<select class='select-css wCol10' style='margin-top: 5px' name='system.attributes.range.value' data-dtype='{{system.attributes.range.value}}'>
-			{{selectOptions config.weapon_range_list selected=system.attributes.range.value labelAttr='label' localize=true}}
+			{{selectOptions config.evolved_weapon_range_list selected=system.attributes.range.value labelAttr='label' localize=true}}
 		</select>
 		<label class='resource-label wCol11'>{{localize 'ALIENRPG.ArmorPiercing'}}</label>
 		<input class='wCol12' name='system.header.armorpiercing' type='checkbox' {{checked system.header.armorpiercing}} />

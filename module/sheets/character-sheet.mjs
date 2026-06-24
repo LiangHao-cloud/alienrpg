@@ -424,12 +424,12 @@ export default class alienrpgCharacterSheet extends api.HandlebarsApplicationMix
             let ammoweight = 0.25;
             if (item.header.type.value === "1") {
               // console.log(item.header.type.value, item.attributes.rounds.value)
-              if (item.attributes.rounds.value > "1") {
+              if (item.attributes.rounds.value > "0") {
                 if (i.system.attributes.class.value === "RPG" || i.name.includes(" RPG ") || i.name.startsWith("RPG") || i.name.endsWith("RPG")) {
                   ammoweight = 0.5;
                 }
                 i.system.attributes.weight.value = i.system.attributes.weight.value || 0;
-                i.totalWeight = (i.system.attributes.weight.value + (i.system.attributes.rounds.value - 1) * ammoweight) * i.system.attributes.quantity.value;
+                i.totalWeight = (i.system.attributes.weight.value + ammoweight) * i.system.attributes.quantity.value;
                 totalWeight += i.totalWeight;
               } else {
                 i.system.attributes.weight.value = i.system.attributes.weight.value || 0;
@@ -450,6 +450,7 @@ export default class alienrpgCharacterSheet extends api.HandlebarsApplicationMix
           // Its just an item
           if (item.header.active !== "fLocker") {
             i.system.attributes.weight.value = i.system.attributes.weight.value || 0;
+            i.system.attributes.quantity.value = i.system.attributes.quantity.value || 1;
             i.totalWeight = i.system.attributes.weight.value * i.system.attributes.quantity.value;
             totalWeight += i.totalWeight;
           }
@@ -758,7 +759,7 @@ export default class alienrpgCharacterSheet extends api.HandlebarsApplicationMix
     const itemId = target.dataset.itemId;
     const item = this.actor.items.get(itemId);
     const actorID = this.actor.id;
-    // if (game.settings.get("alienrpg", "evolved")) {
+
     if (event.button === 2) {
       if (item.type === "weapon") {
         // Trigger the item roll
@@ -1390,166 +1391,21 @@ export default class alienrpgCharacterSheet extends api.HandlebarsApplicationMix
     event.preventDefault(); // Don't open context menu
     event.stopPropagation(); // Don't trigger other events
     if (event.detail > 1) return; // Ignore repeated clicks
-    // If it's a power roll it will have an item number so test if it's zero
-    if (target.dataset.item === "0") return;
-    const lTemp = "ALIENRPG." + target.dataset.spbutt;
-    // If this is a power roll get the exact id of the item to process
+
     const tItem = target.dataset.id || 0;
-    const item = this.actor.items.get(tItem);
+    const lTemp = "ALIENRPG." + target.dataset.spbutt;
     const label = game.i18n.localize(lTemp) + " " + game.i18n.localize("ALIENRPG.Supply");
     const consUme = target.dataset.spbutt.toLowerCase();
     let supplyModifier = 0;
 
-    if (event.button === 0) {
-      const r1Data = 0;
-      let r2Data = 0;
-      if (!supplyModifier) {
-        supplyModifier = 0;
-      }
-      if (target.dataset.spbutt === "ammo") {
-        r2Data = item.system.attributes.rounds.value + supplyModifier;
-        // this.update({ "system.attributes.rounds.value": itemData.attributes.rounds.value - 1 })
-      } else {
-        r2Data = this.actor.system.consumables[`${consUme}`].value + supplyModifier;
-      }
-
-      const reRoll = true;
-      // let hostile = this.actor.system.type;
-      let blind = false;
-      if (this.actor.token?.disposition === -1) {
-        blind = true;
-      }
-      if (r2Data <= 0) {
-        return ui.notifications.warn(game.i18n.localize("ALIENRPG.NoSupplys"));
-      }
-      await yze.yzeRoll(
-        "supply",
-        blind,
-        reRoll,
-        label,
-        r1Data,
-        game.i18n.localize("ALIENRPG.Black"),
-        r2Data,
-        game.i18n.localize("ALIENRPG.Yellow"),
-        this.actor.id,
-      );
-      if (game.alienrpg.rollArr.r2One) {
-        getItems(this.actor, consUme, tItem);
-      }
+    const dataset = target.dataset;
+    if (event.button === 2) {
+      await this.actor.consumablesCheckMod(this.actor, consUme, label, tItem, dataset, supplyModifier);
     } else {
-      // If it's a power roll it will have an item number so test if it's zero
-      // this.actor.consumablesCheck(this.actor, consUme, label, tItem);
-    }
-    async function getItems(aActor, aconsUme, atItem) {
-      let bRoll = game.alienrpg.rollArr.r2One;
-      let tNum = 0;
-      let pValue = "";
-      let pItem = "";
-      let iConsUme = "";
-      let field = `system.attributes.${aconsUme}.value`;
-      const aField = `system.consumables.${aconsUme}.value`;
-
-      switch (aconsUme) {
-        case "power":
-          pItem = aActor.items.get(atItem);
-          pValue = pItem.system.attributes.power.value ?? 0;
-          field = "system.attributes.power.value";
-          if (pValue - game.alienrpg.rollArr.r2One <= "0") {
-            await pItem.update({ [field]: "0" });
-            await aActor.update({
-              "system.consumables.power.value": aActor.system.consumables.power.value - pValue,
-            });
-          } else {
-            await pItem.update({
-              [field]: pValue - game.alienrpg.rollArr.r2One,
-            });
-            await aActor.update({
-              "system.consumables.power.value": aActor.system.consumables.power.value - game.alienrpg.rollArr.r2One,
-            });
-          }
-          break;
-        case "ammo":
-          pItem = aActor.items.get(atItem);
-          pValue = pItem.system.attributes.rounds.value ?? 0;
-          field = "system.attributes.rounds.value";
-          if (pValue - game.alienrpg.rollArr.r2One <= "0") {
-            await pItem.update({ [field]: "0" });
-            await aActor.update({
-              "system.consumables.rounds.value": aActor.system.consumables.rounds.value - pValue,
-            });
-          } else {
-            await pItem.update({
-              [field]: pValue - game.alienrpg.rollArr.r2One,
-            });
-            await aActor.update({
-              "system.consumables.rounds.value": aActor.system.consumables.rounds.value - game.alienrpg.rollArr.r2One,
-            });
-          }
-          break;
-        case "air": {
-          iConsUme = "airsupply";
-          field = `system.attributes.${iConsUme}.value`;
-          break;
-        }
-        default:
-          iConsUme = aconsUme;
-          break;
-      } // while (bRoll > 0) {
-      for (const key in aActor.items.contents) {
-        if (bRoll <= 0) {
-          break;
-        }
-
-        if (aActor.items.contents[key].type === "item" && aActor.items.contents[key].system.header.active) {
-          if (Object.hasOwn(aActor.items.contents, key) && bRoll > 0) {
-            const element = aActor.items.contents[key];
-            if (element.system.attributes[iConsUme].value) {
-              const mitem = aActor.items.get(element.id);
-              const iVal = element.system.attributes[iConsUme].value;
-              if (iVal - bRoll < 0) {
-                tNum = iVal;
-                // bRoll -= iVal;
-              } else {
-                tNum = bRoll;
-              }
-              await mitem.update({
-                [field]: element.system.attributes[iConsUme].value - tNum,
-              });
-            }
-          }
-          bRoll -= tNum;
-        }
-
-        if (aActor.items.contents[key].type === "armor" && aconsUme === "air" && aActor.items.contents[key].system.header.active) {
-          if (Object.hasOwn(aActor.items.contents, key) && bRoll > 0) {
-            const element = aActor.items.contents[key];
-            if (element.system.attributes[iConsUme].value) {
-              const mitem = aActor.items.get(element.id);
-              const iVal = element.system.attributes[iConsUme].value;
-              if (iVal - bRoll < 0) {
-                tNum = iVal;
-                // bRoll -= iVal;
-              } else {
-                tNum = bRoll;
-              }
-              await mitem.update({
-                [field]: element.system.attributes[iConsUme].value - tNum,
-              });
-            }
-          }
-          bRoll -= tNum;
-        }
-      }
-      const cValue = aActor.getRollData().consumables[aconsUme];
-      if (cValue.value - tNum <= 0) {
-        await aActor.update({ [aField]: 0 });
-      } else {
-        await aActor.update({
-          [aField]: Number(`system.consumables.${aconsUme}.value` - tNum || 0),
-        });
-      }
+      await this.actor.consumablesCheck(this.actor, consUme, label, tItem, dataset, supplyModifier);
     }
   }
+
   /**
    * Creates or deletes a configured status effect.
    *

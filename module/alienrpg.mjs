@@ -297,7 +297,13 @@ Hooks.once("init", () => {
 
 Hooks.once("ready", async () => {
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on("hotbarDrop", (bar, data, slot) => createDocMacro(data, slot));
+  // Hooks.on("hotbarDrop", (bar, data, slot) => createDocMacro(data, slot));
+  Hooks.on("hotbarDrop", (bar, data, slot) => {
+    if (data.type === "Item") {
+      createDocMacro(data, slot);
+      return false;
+    }
+  });
 
   sendDevMessage();
   showReleaseNotes();
@@ -490,50 +496,6 @@ Hooks.on("renderChatMessage", (message, html, data) => {
   });
 });
 
-// Hooks.on("renderChatMessage", (message, html, data) => {
-// 	let listenArea = ""
-// 	listenArea = document.querySelectorAll(".chat-log")
-// 	if (!listenArea) return
-// 	for (const addButton of listenArea) {
-// 		let hostile = ""
-
-// 		addButton.addEventListener("click", async (ev) => {
-// 			// switch (ev.target.getElementsByClassName("button.alien-Push-button")) {
-// 			if (ev.target.getElementsByClassName("button.alien-Push-button")) {
-// 				const tarG = ev.target.previousElementSibling.checked
-
-// 				// case "push": {
-// 				ev.preventDefault()
-// 				ev.stopPropagation()
-// 				// const message = game.messages.get(ev.target.getAttribute("data-message-id"))
-// 				const actor = game.actors.get(message.speaker.actor)
-// 				// if (!actor) return ui.notifications.warn(game.i18n.localize("ALIENRPG.NoToken"))
-// 				let reRoll = "push"
-
-// 				if (tarG) {
-// 					reRoll = "mPush"
-// 				}
-
-// 				hostile = actor.type
-// 				let blind = false
-
-// 				if (actor.prototypeToken.disposition === -1) {
-// 					blind = true
-// 				}
-
-// 				switch (actor.type) {
-// 					case "character":
-// 						actor.pushRoll(actor, reRoll, hostile, blind, message)
-// 						break
-// 					default:
-// 						return
-// 				}
-// 				// }
-// 			}
-// 		})
-// 	}
-// })
-
 // Register the settings for the Year Zero Engine: Combat module.
 Hooks.once("yzeCombatReady", (yzec) =>
   yzec.register({
@@ -601,6 +563,7 @@ function rollItemMacro(itemUuid) {
     item.roll();
   });
 }
+
 async function showReleaseNotes() {
   if (game.user.isGM) {
     try {

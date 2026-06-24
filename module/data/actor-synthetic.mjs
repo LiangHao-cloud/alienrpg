@@ -422,18 +422,23 @@ export default class alienrpgSynthetic extends alienrpgActorBase {
         }
       }
 
-      if (Attrib.type === "talent" && Attrib.name.toUpperCase() === "NERVES OF STEEL") {
-        attrMod.stress = attrMod.stress += -2;
+      if (!game.settings.get("alienrpg", "evolved")) {
+        if (Attrib.type === "talent" && Attrib.name.toUpperCase() === "NERVES OF STEEL") {
+          attrMod.stress = attrMod.stress += -2;
+        }
+
+        if (Attrib.type === "talent" && Attrib.name.toUpperCase() === "TAKE CONTROL" && this.attributes.wit.value > this.attributes.emp.value) {
+          this.skills.manipulation.ability = "wit";
+        }
+
+        if (Attrib.type === "talent" && Attrib.name.toUpperCase() === "TOUGH") {
+          attrMod.health = attrMod.health += 2;
+        }
       }
 
-      if (Attrib.type === "talent" && Attrib.name.toUpperCase() === "TAKE CONTROL" && this.attributes.wit.value > this.attributes.emp.value) {
-        this.skills.manipulation.ability = "wit";
+      if (Attrib.type === "talent" && Attrib.name.toUpperCase() === "HARDENED") {
+        attrMod.health = attrMod.health += 1;
       }
-
-      if (Attrib.type === "talent" && Attrib.name.toUpperCase() === "TOUGH") {
-        attrMod.health = attrMod.health += 2;
-      }
-
       if (Attrib.type === "talent" && Attrib.name.toUpperCase() === "STOIC" && this.attributes.wit.value > this.attributes.str.value) {
         this.skills.stamina.ability = "wit";
       }

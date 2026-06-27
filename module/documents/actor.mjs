@@ -1603,6 +1603,182 @@ export class alienrpgActor extends Actor {
     await actor.addCondition("panicked");
     return;
   }
+
+  async consumablesCheck(actor, consUme, label, tItem, dataset, supplyModifier) {
+    // If it's a power roll it will have an item number so test if it's zero
+    // If this is a power roll get the exact id of the item to process
+    const item = actor.items.get(tItem);
+
+    const r1Data = 0;
+    let r2Data = 0;
+    if (!supplyModifier) {
+      supplyModifier = 0;
+    }
+    if (dataset.spbutt === "ammo") {
+      r2Data = item.system.attributes.rounds.value + supplyModifier;
+      // this.update({ "system.attributes.rounds.value": itemData.attributes.rounds.value - 1 })
+    } else {
+      r2Data = actor.system.consumables[`${consUme}`].value + supplyModifier;
+    }
+
+    const reRoll = true;
+    // let hostile = actor.system.type;
+    let blind = false;
+    if (actor.token?.disposition === -1) {
+      blind = true;
+    }
+    if (r2Data <= 0) {
+      return ui.notifications.warn(game.i18n.localize("ALIENRPG.NoSupplys"));
+    }
+    await yze.yzeRoll("supply", blind, reRoll, label, r1Data, game.i18n.localize("ALIENRPG.Black"), r2Data, game.i18n.localize("ALIENRPG.Yellow"), actor.id);
+    if (game.alienrpg.rollArr.r2One) {
+      getItems(actor, consUme, tItem);
+    }
+
+    async function getItems(aActor, aconsUme, atItem) {
+      let bRoll = game.alienrpg.rollArr.r2One;
+      let tNum = 0;
+      let pValue = "";
+      let pItem = "";
+      let iConsUme = "";
+      let field = `system.attributes.${aconsUme}.value`;
+      const aField = `system.consumables.${aconsUme}.value`;
+
+      switch (aconsUme) {
+        case "power":
+          pItem = aActor.items.get(atItem);
+          pValue = pItem.system.attributes.power.value ?? 0;
+          field = "system.attributes.power.value";
+          if (pValue - game.alienrpg.rollArr.r2One <= "0") {
+            await pItem.update({ [field]: "0" });
+            await aActor.update({
+              "system.consumables.power.value": aActor.system.consumables.power.value - pValue,
+            });
+          } else {
+            await pItem.update({
+              [field]: pValue - game.alienrpg.rollArr.r2One,
+            });
+            await aActor.update({
+              "system.consumables.power.value": aActor.system.consumables.power.value - game.alienrpg.rollArr.r2One,
+            });
+          }
+          break;
+        case "ammo":
+          pItem = aActor.items.get(atItem);
+          pValue = pItem.system.attributes.rounds.value ?? 0;
+          field = "system.attributes.rounds.value";
+          if (pValue - game.alienrpg.rollArr.r2One <= "0") {
+            await pItem.update({ [field]: "0" });
+            await aActor.update({
+              "system.consumables.rounds.value": aActor.system.consumables.rounds.value - pValue,
+            });
+          } else {
+            await pItem.update({
+              [field]: pValue - game.alienrpg.rollArr.r2One,
+            });
+            await aActor.update({
+              "system.consumables.rounds.value": aActor.system.consumables.rounds.value - game.alienrpg.rollArr.r2One,
+            });
+          }
+          break;
+        case "air": {
+          iConsUme = "airsupply";
+          field = `system.attributes.${iConsUme}.value`;
+          break;
+        }
+        default:
+          iConsUme = aconsUme;
+          break;
+      } // while (bRoll > 0) {
+      for (const key in aActor.items.contents) {
+        if (bRoll <= 0) {
+          break;
+        }
+
+        if (aActor.items.contents[key].type === "item" && aActor.items.contents[key].system.header.active) {
+          if (Object.hasOwn(aActor.items.contents, key) && bRoll > 0) {
+            const element = aActor.items.contents[key];
+            if (element.system.attributes[iConsUme].value) {
+              const mitem = aActor.items.get(element.id);
+              const iVal = element.system.attributes[iConsUme].value;
+              if (iVal - bRoll < 0) {
+                tNum = iVal;
+                // bRoll -= iVal;
+              } else {
+                tNum = bRoll;
+              }
+              await mitem.update({
+                [field]: element.system.attributes[iConsUme].value - tNum,
+              });
+            }
+          }
+          bRoll -= tNum;
+        }
+
+        if (aActor.items.contents[key].type === "armor" && aconsUme === "air" && aActor.items.contents[key].system.header.active) {
+          if (Object.hasOwn(aActor.items.contents, key) && bRoll > 0) {
+            const element = aActor.items.contents[key];
+            if (element.system.attributes[iConsUme].value) {
+              const mitem = aActor.items.get(element.id);
+              const iVal = element.system.attributes[iConsUme].value;
+              if (iVal - bRoll < 0) {
+                tNum = iVal;
+                // bRoll -= iVal;
+              } else {
+                tNum = bRoll;
+              }
+              await mitem.update({
+                [field]: element.system.attributes[iConsUme].value - tNum,
+              });
+            }
+          }
+          bRoll -= tNum;
+        }
+      }
+      const cValue = aActor.getRollData().consumables[aconsUme];
+      if (cValue.value - tNum <= 0) {
+        await aActor.update({ [aField]: 0 });
+      } else {
+        await aActor.update({
+          [aField]: Number(`system.consumables.${aconsUme}.value` - tNum || 0),
+        });
+      }
+    }
+  }
+  async consumablesCheckMod(actor, consUme, label, tItem, dataset, supplyModifier) {
+    const config = CONFIG.ALIENRPG;
+    const content = await foundry.applications.handlebars.renderTemplate("systems/alienrpg/templates/dialog/roll-supplymod-dialog.hbs", actor, dataset.dataset);
+    let response = "";
+    const title = game.i18n.localize("ALIENRPG.DialTitle1") + " " + dataset.label + " " + game.i18n.localize("ALIENRPG.DialTitle2");
+    let modifier = 0;
+    response = await foundry.applications.api.DialogV2.wait({
+      window: { title: title },
+      content,
+      rejectClose: false,
+      buttons: [
+        {
+          label: "ALIENRPG.DialRoll",
+          callback: (event, button) => new foundry.applications.ux.FormDataExtended(button.form).object,
+        },
+        {
+          label: "ALIENRPG.DialCancel",
+          action: "cancel",
+        },
+      ],
+    });
+
+    if (!response || response === "cancel") return "cancelled";
+    if (response) {
+      if (!response.supplyMod) {
+        supplyMod = 0;
+      } else modifier = Number(response.supplyMod);
+      if (Number.isNaN(response.supplyMod)) modifier = 0;
+
+      supplyModifier = modifier;
+
+      this.consumablesCheck(actor, consUme, label, tItem, dataset, supplyModifier);
+    }
+  }
   async rollCrit(actor, type, dataset, manCrit) {
     const config = CONFIG.ALIENRPG;
     let atable = "";

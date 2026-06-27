@@ -52,7 +52,7 @@
 		<li class="item grid-items" data-item-id="{{item._id}}">
 			<div class="item-image lCol5" data-action="ItemActivate" data-item-id="{{item.id}}"><img src="{{item.img}}" data-item="{{item.system.header.active}}" title="{{item.name}}" width="24" height="24" />
 			</div>
-			<span class="item-detail rollItem lCol6" data-action="RollItem" data-item-id='{{item.id}}' data-roll='{{itemRoll}}' data-item="{{item.name}}" data-mod="{{system.skills.rangedCbt.mod}}">{{item.name~}}</span>
+			<span class="item-detail rollItem lCol6 draggable " data-action="RollItem" data-item-id='{{item.id}}' data-roll='{{itemRoll}}' data-item="{{item.name}}" data-mod="{{system.skills.rangedCbt.mod}}">{{item.name~}}</span>
 
 			{{#if (eq item.type 'weapon')}} {{#if (eq item.system.header.type.value '1')}}
 			<input type="text" class="item-label maxboxsize lCol18 inline-edit" data-mod="system.attributes.quantity.value" name="item.system.attributes.quantity.value" value="{{item.system.attributes.quantity.value}}" data-dtype="String" />

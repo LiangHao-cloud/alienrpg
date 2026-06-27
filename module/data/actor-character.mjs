@@ -446,6 +446,9 @@ export default class alienrpgCharacter extends alienrpgActorBase {
         }
       }
 
+      if (Attrib.type === "talent" && Attrib.name.toUpperCase() === "HARDENED") {
+        attrMod.health = attrMod.health += 1;
+      }
       if (Attrib.type === "talent" && Attrib.name.toUpperCase() === "STOIC" && this.attributes.wit.value > this.attributes.str.value) {
         this.skills.stamina.ability = "wit";
       }

@@ -405,6 +405,13 @@ ALIENRPG.weapon_range_list = {
   4: { id: 4, label: "ALIENRPG.Long" },
   5: { id: 5, label: "ALIENRPG.Extreme" },
 };
+ALIENRPG.evolved_weapon_range_list = {
+  1: { id: 1, label: "ALIENRPG.Adjacent" },
+  2: { id: 2, label: "ALIENRPG.Short" },
+  3: { id: 3, label: "ALIENRPG.Medium" },
+  4: { id: 4, label: "ALIENRPG.Long" },
+  5: { id: 5, label: "ALIENRPG.Extreme" },
+};
 
 ALIENRPG.vehicle_weapon_range_list = {
   1: { id: 1, label: "ALIENRPG.Contact", value: "2" },
@@ -414,7 +421,7 @@ ALIENRPG.vehicle_weapon_range_list = {
   5: { id: 5, label: "ALIENRPG.Extreme", value: "-2" },
 };
 ALIENRPG.evolved_vehicle_weapon_range_list = {
-  1: { id: 1, label: "ALIENRPG.Contact" },
+  1: { id: 1, label: "ALIENRPG.Adjacent" },
   2: { id: 2, label: "ALIENRPG.Short" },
   3: { id: 3, label: "ALIENRPG.Medium" },
   4: { id: 4, label: "ALIENRPG.Long" },
@@ -458,7 +465,15 @@ ALIENRPG.ship_weapon_type_list = {
   2: { id: 2, label: "ALIENRPG.Defensive" },
 };
 ALIENRPG.ship_weapon_range_list = {
-  6: { key: 6, label: "ALIENRPG.Contact" },
+  6: { key: 6, label: "ALIENRPG.Close" },
+  2: { key: 2, label: "ALIENRPG.Short" },
+  3: { key: 3, label: "ALIENRPG.Medium" },
+  4: { key: 4, label: "ALIENRPG.Long" },
+  5: { key: 5, label: "ALIENRPG.Extreme" },
+  7: { key: 7, label: "ALIENRPG.Surface" },
+};
+ALIENRPG.evolved_ship_weapon_range_list = {
+  6: { key: 6, label: "ALIENRPG.Adjacent" },
   2: { key: 2, label: "ALIENRPG.Short" },
   3: { key: 3, label: "ALIENRPG.Medium" },
   4: { key: 4, label: "ALIENRPG.Long" },

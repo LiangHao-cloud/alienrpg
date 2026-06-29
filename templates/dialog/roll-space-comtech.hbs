@@ -4,9 +4,15 @@
 </div>
 <div class="form-group">
 	<label>{{localize "ALIENRPG.targetLock"}} {{localize "ALIENRPG.MODIFIER"}}</label>
+	{{#if isEvolved}}
+	<select id="targetLock" name="targetLock">
+		{{{selectOptions config.evolved_vehicle_weapon_range_list selected=targetLock labelAttr='label' localize=true}}}
+	</select>
+	{{else}}
 	<select id="targetLock" name="targetLock">
 		{{{selectOptions config.vehicle_weapon_range_list selected=targetLock labelAttr='label' localize=true}}}
 	</select>
+	{{/if}}
 </div>
 <div class="form-group">
 	<label>{{localize "ALIENRPG.targetMod"}}</label>

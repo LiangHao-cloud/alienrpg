@@ -27,61 +27,37 @@
       </strong>
     </p>
 
-    <h1 class="heading">Change history for latest version Version 4.0.5 to 4.0.10</h1>
-    <p>EVOLVED SYSTEM</p>
+    <h1 class="heading">Change history for latest version Version 4.1.11 to 4.1.13</h1>
+
+    <p>Version 4.1.13</p>
     <ul>
-      <li>New Actor, Item sheets to support Alien Evolved</li>
-      <li>
-        Ability to switch between Alien "Classic" and Alien "Evolved" rules (one or the other) under Configure Settings>Alien Evolved> Use Alien Evolved Rules
-        and Sheets toggle.
-      </li>
-      <li>Evolved - Careers are now 'drag-and-drop' items (by popular request)</li>
-      <li>Evolved - Support for new actor conditions (Stress/Panic)</li>
-      <li>Evolved - To roll "Stress Responses" click on "Resolve" (Right click for mods)</li>
-      <li>Evolved - To roll "Panic Responses" click on "Panic" (Right click for mods)</li>
-      <li>Evolved - Supply rolls for ammo are performed automatically</li>
-      <li>
-        Evolved - Firing weapons present range and target modifier options (NOTE: Full Auto is currently manual and will be automated in a future release)
-      </li>
+      <li>Fixed issue with initiative cards not showing when Evolved-Core and Evolved-Starterset were enabled.</li>
+      <li>Ammo weight calcualtion now adds a flat 0.25 (0.50 for RPG) to weapons when they have ammo dice assigned.</li>
+      <li>Added right click modifier option to Consumables including Power rolls.</li>
+      <li>Hardened now added =1 to max strength.</li>
+      <li>Active weapons can now be dropped on to the macro bar and fired from there.</li>
+      <li>When in Evolved mode weapon ranges now show "Adjacent" rather than "Close".</li>
+      <li>Cleaned up old Foundry V1 dialog box.</li>
     </ul>
-    <p>BACK END</p>
+
+    <p>Version 4.1.12</p>
     <ul>
-      <li>Moved from template.json data structure to data models</li>
-      <li>Upgraded all sheets to Foundry App V2</li>
+      <li>V14 Compliant.</li>
+      <li>Added popups to Character and Synthtic sheets to show roll modifiers on Attributes, Resolve and Skills.</li>
+      <li>Corrected issue with Skills not triggering rolls when using the CRT UI sheet.</li>
+      <li>Fixed issue with the menus not being translated properly.</li>
+      <li>Increased the size of the xp cash window on the classic sheets to prevent overlap.</li>
+      <li>Corrrected issue with Spacecraft critical injuries.</li>
     </ul>
-    <p>Version 4.0.10</p>
+
+    <p>Version 4.1.11</p>
     <ul>
-      <li>Reworked Stress and Panic Response mechanics.</li>
-      <li>New German translations with thanks to Gumbald</li>
-      <li>Evolved character sheet adjustments</li>
-    </ul>
-    <p>Version 4.0.9</p>
-    <ul>
-      <li>Fixed Major and Minor Component Damage rolls not working.</li>
-      <li>Fixed the the Ranged attack not including the -2 modifier when "Engaged".</li>
-    </ul>
-    <p>Version 4.0.8</p>
-    <ul>
-      <li>Fixed bug where Creatures sheets would not open (Root cause: Idiot developer not adding an include file!)</li>
-    </ul>
-    <p>Version 4.0.7</p>
-    <ul>
-      <li>Allow negative values on Vehicle sheet.</li>
-      <li>Allow hull values higher than 10 on the Vehicle sheet.</li>
-      <li>Fixed issue with Notes tab on the Items sheet.</li>
-      <li>Fixed issue with Notes tab on the Items sheet.</li>
-      <li>Evolved - now use the same Stunt for all Skills (as per RAW)</li>
-    </ul>
-    <p>Version 4.0.6</p>
-    <ul>
-      <li>Corrected bug with radiation rolls (thanks to @Takara)</li>
-      <li>When in Evolved mode, Reducing radiation no longer rolls for permanant radiation</li>
-      <li>Firing a weapon at "Engaged" range now uses Close Combat skill rather then Ranged Combat (thanks to @Takara)</li>
-      <li>Fix an issue where Stress responses were being removed if the PC already had them even though the +1 stress was being added.</li>
-    </ul>
-    <p>Version 4.0.5</p>
-    <ul>
-      <li>Updated crit handling to accomodate new Evolved table.</li>
+      <li>System now defaults to the EVOLVED rules.</li>
+      <li>Corrected issue with Notes field on Spacecraft sheet</li>
+      <li>Fixed issue with Colony Initiatives not allowing negative modifiers.</li>
+      <li>Corrected crew calculations on the Vehicle and Spacecraft sheets.</li>
+      <li>Corrected error with Vehicle Weapon Range modifiers.</li>
+      <li>Removed cap (5) on creature attributes.</li>
     </ul>
     <p>
       Should you wish to populate the system with game content for your own use please purchase the rules from Free League Publishing:
@@ -1124,7 +1100,64 @@
   </div>
   <div style="position: relative; margin-top: 30px">
     <h2 class="heading">Change History</h2>
-    <h1 class="heading">Change history for latest version Version 3.3.2 & 3.3.6</h1>
+    <h2 class="heading2">Change history for latest version Version 4.0.5 to 4.0.10</h2>
+    <p>EVOLVED SYSTEM</p>
+    <ul>
+      <li>New Actor, Item sheets to support Alien Evolved</li>
+      <li>
+        Ability to switch between Alien "Classic" and Alien "Evolved" rules (one or the other) under Configure Settings>Alien Evolved> Use Alien Evolved Rules
+        and Sheets toggle.
+      </li>
+      <li>Evolved - Careers are now 'drag-and-drop' items (by popular request)</li>
+      <li>Evolved - Support for new actor conditions (Stress/Panic)</li>
+      <li>Evolved - To roll "Stress Responses" click on "Resolve" (Right click for mods)</li>
+      <li>Evolved - To roll "Panic Responses" click on "Panic" (Right click for mods)</li>
+      <li>Evolved - Supply rolls for ammo are performed automatically</li>
+      <li>
+        Evolved - Firing weapons present range and target modifier options (NOTE: Full Auto is currently manual and will be automated in a future release)
+      </li>
+    </ul>
+    <p>BACK END</p>
+    <ul>
+      <li>Moved from template.json data structure to data models</li>
+      <li>Upgraded all sheets to Foundry App V2</li>
+    </ul>
+    <p>Version 4.0.10</p>
+    <ul>
+      <li>Reworked Stress and Panic Response mechanics.</li>
+      <li>New German translations with thanks to Gumbald</li>
+      <li>Evolved character sheet adjustments</li>
+    </ul>
+    <p>Version 4.0.9</p>
+    <ul>
+      <li>Fixed Major and Minor Component Damage rolls not working.</li>
+      <li>Fixed the the Ranged attack not including the -2 modifier when "Engaged".</li>
+    </ul>
+    <p>Version 4.0.8</p>
+    <ul>
+      <li>Fixed bug where Creatures sheets would not open (Root cause: Idiot developer not adding an include file!)</li>
+    </ul>
+    <p>Version 4.0.7</p>
+    <ul>
+      <li>Allow negative values on Vehicle sheet.</li>
+      <li>Allow hull values higher than 10 on the Vehicle sheet.</li>
+      <li>Fixed issue with Notes tab on the Items sheet.</li>
+      <li>Fixed issue with Notes tab on the Items sheet.</li>
+      <li>Evolved - now use the same Stunt for all Skills (as per RAW)</li>
+    </ul>
+    <p>Version 4.0.6</p>
+    <ul>
+      <li>Corrected bug with radiation rolls (thanks to @Takara)</li>
+      <li>When in Evolved mode, Reducing radiation no longer rolls for permanant radiation</li>
+      <li>Firing a weapon at "Engaged" range now uses Close Combat skill rather then Ranged Combat (thanks to @Takara)</li>
+      <li>Fix an issue where Stress responses were being removed if the PC already had them even though the +1 stress was being added.</li>
+    </ul>
+    <p>Version 4.0.5</p>
+    <ul>
+      <li>Updated crit handling to accomodate new Evolved table.</li>
+    </ul>
+
+    <h2 class="heading2">Change history for latest version Version 3.3.2 & 3.3.6</h2>
     Bugs:
     <ul>
       <li>Version 3.3.2</li>

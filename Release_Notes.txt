@@ -688,3 +688,12 @@ Corrected issue with Skills not triggering rolls when using the CRT UI sheet.
 Fixed issue with the menus not being translated properly.
 Increased the size of the xp cash window on the classic sheets to prevent overlap. 
 Corrrected issue with Spacecraft critical injuries.
+
+Version 4.1.13
+Fixed issue with initiative cards not showing when Evolved-Core and Evolved-Starterset were enabled.
+Ammo weight calcualtion now adds a flat 0.25 (0.50 for RPG) to weapons when they have ammo dice assigned. 
+Added right click modifier option to Consumables including Power rolls.
+Hardened now added =1 to max strength.
+Active weapons can now be dropped on to the macro bar and fired from there.
+When in Evolved mode weapon ranges now show "Adjacent" rather than "Close".
+Cleaned up old Foundry V1 dialog box. 

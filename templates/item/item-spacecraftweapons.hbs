@@ -12,11 +12,15 @@
 		<input type='text' class='maxboxsize scwCol6' name='system.attributes.bonus.value' value='{{system.attributes.bonus.value}}' data-dtype='Number' />
 
 		<label class='scwCol7 resource-label'>{{localize 'ALIENRPG.Range'}}</label>
+		{{#if isEvolved}}
+		<select class='select-css scwCol8' name='system.attributes.range.value' data-dtype='{{system.attributes.range.value}}'>
+			{{selectOptions config.evolved_ship_weapon_range_list selected=system.attributes.range.value labelAttr='label' localize=true}}
+		</select>
+		{{else}}
 		<select class='select-css scwCol8' name='system.attributes.range.value' data-dtype='{{system.attributes.range.value}}'>
 			{{selectOptions config.ship_weapon_range_list selected=system.attributes.range.value labelAttr='label' localize=true}}
 		</select>
-
-
+		{{/if}}
 		<label class='resource-label scwCol9'>{{localize 'ALIENRPG.hardpoint'}}</label>
 		<select class='select-css scwCol10' name='system.attributes.hardpoint.value' data-dtype='{{system.attributes.hardpoint.value}}'>
 			{{selectOptions config.ship_hardpoint_list selected=system.attributes.hardpoint.value nameAttr='key' labelAttr='label' localize=true}}

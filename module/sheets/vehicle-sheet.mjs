@@ -643,10 +643,12 @@ export default class alienrpgVehicleSheet extends api.HandlebarsApplicationMixin
     event.stopPropagation(); // Don't trigger other events
     if (event.detail > 1) return; // Ignore repeated clicks
     const dataset = target.dataset;
+    dataset.iEvolved = false;
     const itemId = target.dataset.itemId;
     const item = this.actor.items.get(itemId);
     const actorID = this.actor.id;
     if (game.settings.get("alienrpg", "evolved")) {
+      dataset.isEvolved = true;
       if (event.button === 2) {
         if (item.type === "weapon") {
           // Trigger the item roll
